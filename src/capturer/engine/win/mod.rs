@@ -153,7 +153,7 @@ pub fn create_capturer(options: &Options, tx: mpsc::Sender<Frame>) -> WCStream {
 
     let show_highlight = match options.show_highlight {
         true => DrawBorderSettings::WithBorder,
-        false => DrawBorderSettings::WithoutBorder,
+        false => DrawBorderSettings::Default, // TODO Why doesn't WithoutBorder work here? https://github.com/NiiightmareXD/windows-capture/issues/69
     };
 
     let settings = match target {
