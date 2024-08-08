@@ -146,6 +146,7 @@ pub fn create_capturer(options: &Options, tx: mpsc::Sender<Frame>) -> WCStream {
         _ => ColorFormat::Rgba8,
     };
 
+    // TODO: available since Windows 10 version 2004, May 2020 Update (20H1), build 10.0.19041.0
     let show_cursor = match options.show_cursor {
         true => CursorCaptureSettings::WithCursor,
         false => CursorCaptureSettings::WithoutCursor,
@@ -155,7 +156,7 @@ pub fn create_capturer(options: &Options, tx: mpsc::Sender<Frame>) -> WCStream {
         Target::Display(display) => Settings::Display(WCSettings::new(
             WCMonitor::from_raw_hmonitor(display.raw_handle.0),
             show_cursor,
-            DrawBorderSettings::Default,
+            DrawBorderSettings::Default, // TODO: Only needed for < [Windows 10, version 2104 (introduced in 10.0.20348.0)]
             color_format,
             FlagStruct {
                 tx,
